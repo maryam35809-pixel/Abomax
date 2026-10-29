@@ -1,1 +1,207 @@
-<!DOCTYPE html> <html lang="fa" dir="rtl"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <title>دستیار موبایل</title> <style> *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; } :root{ --bg:#070a10; --card:#111722; --card2:#171e2b; --border:#263043; --text:#ffffff; --muted:#8994a7; --accent:#6c5ce7; --accent2:#00cec9; } body{ font-family:Tahoma,Arial,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; } /* ---------------- WELCOME ---------------- */ #welcome{ position:fixed; inset:0; z-index:9999; background: radial-gradient(circle at center,#18203a 0%,#070a10 55%); display:flex; align-items:center; justify-content:center; flex-direction:column; transition:opacity .7s ease; } .logo{ width:95px; height:95px; border-radius:28px; display:flex; align-items:center; justify-content:center; font-size:45px; background:linear-gradient(135deg,var(--accent),var(--accent2)); box-shadow:0 0 40px #6c5ce766; margin-bottom:22px; animation:logoPulse 1.5s infinite alternate; } @keyframes logoPulse{ from{transform:scale(1)} to{transform:scale(1.06)} } #welcome h1{ font-size:27px; text-align:center; margin:4px; } #welcome p{ color:var(--muted); font-size:13px; margin-top:10px; } /* ---------------- APP ---------------- */ #app{ width:100%; max-width:650px; margin:auto; padding:18px; } /* Header */ .header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; } .header h2{ font-size:21px; } .header small{ color:var(--muted); display:block; margin-top:5px; } #clock{ font-size:17px; font-weight:bold; direction:ltr; } /* ---------------- BATTERY ---------------- */ .battery-card{ background:linear-gradient(135deg,#171e2b,#0e131c); border:1px solid var(--border); border-radius:23px; padding:20px; margin-bottom:16px; } .battery-top{ display:flex; align-items:center; justify-content:space-between; } .battery-percent{ font-size:35px; font-weight:bold; } .battery-status{ color:#5ee88a; font-size:13px; margin-top:4px; } .battery-icon{ font-size:40px; } .battery-bar{ height:9px; background:#252d3c; border-radius:20px; overflow:hidden; margin-top:16px; } #batteryFill{ height:100%; width:0%; border-radius:20px; background:linear-gradient(90deg,var(--accent2),var(--accent)); transition:width .4s; } /* ---------------- GRID ---------------- */ .grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; } .card{ min-height:125px; padding:20px 12px; border-radius:21px; border:1px solid var(--border); background:linear-gradient(145deg,var(--card),#0e131c); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; cursor:pointer; transition:transform .15s,background .2s; } .card:active{ transform:scale(.95); } .card .icon{ font-size:32px; } .card h3{ font-size:15px; } .card p{ color:var(--muted); font-size:11px; } /* ---------------- FOOTER ---------------- */ footer{ text-align:center; color:#596477; font-size:11px; padding:25px 0 10px; } /* ---------------- MODAL ---------------- */ .modal{ position:fixed; inset:0; background:rgba(0,0,0,.72); z-index:5000; display:none; align-items:flex-end; justify-content:center; } .modal-box{ width:100%; max-width:650px; max-height:88vh; overflow:auto; background:#111722; border-radius:28px 28px 0 0; padding:22px; border-top:1px solid #2b3548; animation:modalUp .25s ease; } @keyframes modalUp{ from{transform:translateY(100%)} to{transform:translateY(0)} } .modal-title{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; } .modal-title h2{ font-size:20px; } .close{ width:38px; height:38px; border:0; border-radius:50%; background:#252e3d; color:#fff; font-size:21px; } .big-button{ width:100%; padding:15px; border:0; border-radius:15px; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; font-size:16px; margin-top:14px; } .secondary-button{ width:100%; padding:14px; border:1px solid var(--border); border-radius:15px; background:#202838; color:white; font-size:15px; margin-top:10px; } /* ---------------- CAMERA ---------------- */ #cameraVideo{ width:100%; display:none; border-radius:18px; margin-top:15px; background:#000; } /* ---------------- CALCULATOR ---------------- */ .calc-display{ width:100%; height:65px; border:1px solid var(--border); border-radius:16px; background:#080b11; color:#fff; font-size:26px; padding:10px 14px; text-align:left; direction:ltr; margin-bottom:12px; } .calc{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; } .calc button{ height:58px; border:0; border-radius:15px; background:#202838; color:#fff; font-size:18px; } .calc button:active{ transform:scale(.94); } .calc .operator{ background:#30394d; } /* ---------------- TIMER ---------------- */ .timer{ text-align:center; direction:ltr; font-size:52px; font-weight:bold; margin:25px 0; } .timer-buttons{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; } .timer-buttons button{ border:0; padding:14px 5px; border-radius:14px; background:#202838; color:#fff; } /* ---------------- INFO ---------------- */ .info{ background:#080b11; border-radius:17px; padding:15px; line-height:2; font-size:13px; direction:rtl; overflow-wrap:anywhere; } .info-row{ border-bottom:1px solid #222b38; padding:5px 0; } /* ---------------- INPUT ---------------- */ .phone-input{ width:100%; padding:16px; border-radius:15px; border:1px solid var(--border); background:#080b11; color:#fff; font-size:17px; direction:ltr; outline:none; } /* ---------------- SWITCH ---------------- */ .switch-box{ display:flex; align-items:center; justify-content:space-between; background:#080b11; border-radius:16px; padding:15px; } .switch{ width:55px; height:30px; border-radius:30px; background:#30394a; position:relative; cursor:pointer; } .switch::after{ content:""; position:absolute; width:24px; height:24px; border-radius:50%; background:#fff; top:3px; right:3px; transition:.2s; } .switch.active{ background:#00a99d; } .switch.active::after{ right:28px; } /* ---------------- SMALL SCREENS ---------------- */ @media(max-width:360px){ #app{ padding:12px; } .card{ min-height:112px; } .battery-percent{ font-size:30px; } } </style> </head> <body> <!-- WELCOME --> <div id="welcome"> <div class="logo">📱</div> <h1>WELCOME TO</h1> <h1>دستیار موبایل</h1> <p>مرکز ابزارهای کاربردی گوشی</p> </div> <!-- APP --> <main id="app"> <header class="header"> <div> <h2>📱 دستیار موبایل</h2> <small id="persianDate">در حال دریافت تاریخ...</small> </div> <div id="clock">--:--:--</div> </header> <!-- BATTERY --> <section class="battery-card"> <div class="battery-top"> <div> <div class="battery-percent" id="batteryPercent"> --% </div> <div class="battery-status" id="batteryStatus"> در حال بررسی... </div> </div> <div class="battery-icon"> 🔋 </div> </div> <div class="battery-bar"> <div id="batteryFill"></div> </div> </section> <!-- TOOLS --> <section class="grid"> <div class="card" onclick="openFlashlight()"> <div class="icon">🔦</div> <h3>چراغ قوه</h3> <p>کنترل فلش</p> </div> <div class="card" onclick="openPhone()"> <div class="icon">📞</div> <h3>تماس</h3> <p>شماره‌گیری</p> </div> <div class="card" onclick="openCamera()"> <div class="icon">📷</div> <h3>دوربین</h3> <p>دوربین گوشی</p> </div> <div class="card" onclick="openCalculator()"> <div class="icon">🧮</div> <h3>ماشین حساب</h3> <p>محاسبات سریع</p> </div> <div class="card" onclick="openTimer()"> <div class="icon">⏱️</div> <h3>تایمر</h3> <p>زمان‌سنج</p> </div> <div class="card" onclick="openDeviceInfo()"> <div class="icon">📱</div> <h3>اطلاعات گوشی</h3> <p>مشخصات دستگاه</p> </div> <div class="card" onclick="openInternet()"> <div class="icon">🌐</div> <h3>اینترنت</h3> <p>وضعیت اتصال</p> </div> <div class="card" onclick="testVibration()"> <div class="icon">📳</div> <h3>لرزش</h3> <p>تست ویبره</p> </div> <div class="card" onclick="openConverter()"> <div class="icon">🔄</div> <h3>تبدیل واحد</h3> <p>تبدیل سریع</p> </div> <div class="card" onclick="openNotes()"> <div class="icon">📝</div> <h3>یادداشت</h3> <p>ذخیره روی گوشی</p> </div> </section> <footer> دستیار موبایل • نسخه آزمایشی </footer> </main> <!-- MODAL --> <div class="modal" id="modal"> <div class="modal-box"> <div class="modal-title"> <h2 id="modalTitle">ابزار</h2> <button class="close" onclick="closeModal()">×</button> </div> <div id="modalContent"></div> </div> </div> <script> /* ========================================================= WELCOME ========================================================= */ setTimeout(function(){ const welcome=document.getElementById("welcome"); welcome.style.opacity="0"; setTimeout(function(){ welcome.style.display="none"; },700); },2200); /* ========================================================= MODAL ========================================================= */ function openModal(title,content){ document.getElementById("modalTitle").innerText=title; document.getElementById("modalContent").innerHTML=content; document.getElementById("modal").style.display="flex"; } function closeModal(){ stopCamera(); stopFlash(); document.getElementById("modal").style.display="none"; } /* ========================================================= CLOCK ========================================================= */ function updateClock(){ const now=new Date(); const h=String(now.getHours()).padStart(2,"0"); const m=String(now.getMinutes()).padStart(2,"0"); const s=String(now.getSeconds()).padStart(2,"0"); document.getElementById("clock").innerText= h+":"+m+":"+s; } setInterval(updateClock,1000); updateClock(); /* ========================================================= PERSIAN DATE ========================================================= */ function updatePersianDate(){ const now=new Date(); try{ const date=new Intl.DateTimeFormat( "fa-IR-u-ca-persian", { year:"numeric", month:"2-digit", day:"2-digit", weekday:"long" } ).format(now); document.getElementById("persianDate").innerText=date; }catch(e){ document.getElementById("persianDate").innerText= "تاریخ شمسی در دسترس نیست"; } } updatePersianDate(); /* ========================================================= BATTERY ========================================================= */ async function loadBattery(){ if(!navigator.getBattery){ document.getElementById("batteryPercent").innerText= "—"; document.getElementById("batteryStatus").innerText= "مرورگر از باتری پشتیبانی نمی‌کند"; return; } try{ const battery=await navigator.getBattery(); function update(){ const level=Math.round(battery.level*100); document.getElementById("batteryPercent").innerText= level+"%"; document.getElementById("batteryFill").style.width= level+"%"; document.getElementById("batteryStatus").innerText= battery.charging ? "⚡ در حال شارژ" : "● در حال استفاده"; } update(); battery.addEventListener("levelchange",update); battery.addEventListener("chargingchange",update); }catch(e){ document.getElementById("batteryStatus").innerText= "اطلاعات باتری در دسترس نیست"; } } loadBattery(); /* ========================================================= PHONE ========================================================= */ function openPhone(){ openModal( "📞 تماس", ` <p style="color:#9aa4b5;line-height:1.8"> شماره را وارد کن و دکمه تماس را بزن. </p> <input id="phoneNumber" class="phone-input" type="tel" inputmode="tel" placeholder="مثلاً 09123456789"> <button class="big-button" onclick="makePhoneCall()"> 📞 تماس گرفتن </button> ` ); } function makePhoneCall(){ const number= document.getElementById("phoneNumber").value.trim(); if(!number){ alert("لطفاً شماره را وارد کن."); return; } window.location.href= "tel:"+number; } /* ========================================================= CAMERA ========================================================= */ let cameraStream=null; function openCamera(){ openModal( "📷 دوربین", ` <p style="color:#9aa4b5;line-height:1.8"> برای استفاده از دوربین، اجازه دسترسی را تأیید کن. </p> <button class="big-button" onclick="startCamera()"> 📷 روشن کردن دوربین </button> <video id="cameraVideo" autoplay muted playsinline> </video> <button class="secondary-button" onclick="stopCamera()"> ⏹ خاموش کردن دوربین </button> ` ); } async function startCamera(){ if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ alert( "این مرورگر اجازه استفاده از دوربین را نمی‌دهد. سایت را با HTTPS باز کن." ); return; } try{ cameraStream= await navigator.mediaDevices.getUserMedia({ video:{ facingMode:{ ideal:"environment" } }, audio:false }); const video= document.getElementById("cameraVideo"); video.srcObject=cameraStream; video.style.display="block"; }catch(error){ alert( "دسترسی دوربین داده نشد یا دوربین در دسترس نیست." ); } } function stopCamera(){ if(cameraStream){ cameraStream.getTracks().forEach(function(track){ track.stop(); }); cameraStream=null; } const video=document.getElementById("cameraVideo"); if(video){ video.srcObject=null; video.style.display="none"; } } /* ========================================================= FLASHLIGHT ========================================================= */ let flashStream=null; let flashTrack=null; function openFlashlight(){ openModal( "🔦 چراغ قوه", ` <p style="color:#9aa4b5;line-height:1.8"> در بعضی گوشی‌ها و مرورگرها کنترل مستقیم فلش امکان‌پذیر نیست. </p> <button class="big-button" onclick="turnFlashOn()"> 🔦 روشن کردن چراغ قوه </button> <button class="secondary-button" onclick="stopFlash()"> خاموش کردن </button> ` ); } async function turnFlashOn(){ if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ alert("این مرورگر از کنترل فلش پشتیبانی نمی‌کند."); return; } try{ flashStream= await navigator.mediaDevices.getUserMedia({ video:{ facingMode:{ ideal:"environment" } }, audio:false }); flashTrack= flashStream.getVideoTracks()[0]; const capabilities= flashTrack.getCapabilities ? flashTrack.getCapabilities() : {}; if(!capabilities.torch){ alert( "مرورگر یا گوشی اجازه کنترل مستقیم چراغ قوه را نمی‌دهد." ); stopFlash(); return; } await flashTrack.applyConstraints({ advanced:[ {torch:true} ] }); }catch(error){ alert( "برای چراغ قوه باید اجازه دوربین را تأیید کنی." ); stopFlash(); } } async function stopFlash(){ try{ if(flashTrack){ const capabilities= flashTrack.getCapabilities ? flashTrack.getCapabilities() : {}; if(capabilities.torch){ await flashTrack.applyConstraints({ advanced:[ {torch:false} ] }); } } }catch(e){} if(flashStream){ flashStream.getTracks().forEach(function(track){ track.stop(); }); flashStream=null; flashTrack=null; } } /* ========================================================= CALCULATOR ========================================================= */ let calc=""; function openCalculator(){ calc=""; openModal( "🧮 ماشین حساب حرفه‌ای", ` <input id="calcDisplay" class="calc-display" readonly> <div class="calc"> <button onclick="calcClear()">C</button> <button onclick="calcDelete()">⌫</button> <button onclick="calcAdd('%')">%</button> <button class="operator" onclick="calcAdd('/')">÷</button> <button onclick="calcAdd('7')">7</button> <button onclick="calcAdd('8')">8</button> <button onclick="calcAdd('9')">9</button> <button class="operator" onclick="calcAdd('*')">×</button> <button onclick="calcAdd('4')">4</button> <button onclick="calcAdd('5')">5</button> <button onclick="calcAdd('6')">6</button> <button class="operator" onclick="calcAdd('-')">−</button> <button onclick="calcAdd('1')">1</button> <button onclick="calcAdd('2')">2</button> <button onclick="calcAdd('3')">3</button> <button class="operator" onclick="calcAdd('+')">+</button> <button onclick="calcAdd('(')">(</button> <button onclick="calcAdd('0')">0</button> <button onclick="calcAdd('.')">.</button> <button onclick="calcResult()">=</button> </div> ` ); } function calcAdd(value){ calc+=value; const display=document.getElementById("calcDisplay"); if(display){ display.value=calc; } } function calcClear(){ calc=""; const display=document.getElementById("calcDisplay"); if(display){ display.value=""; } } function calcDelete(){ calc=calc.slice(0,-1); const display=document.getElementById("calcDisplay"); if(display){ display.value=calc; } } function calcResult(){ try{ if(!calc) return; if(!/^[0-9+\-*/().%\s]+$/.test(calc)){ throw new Error(); } let expression=calc.replace( /(\d+(?:\.\d+)?)%/g, "($1/100)" ); const result=Function( '"use strict";return ('+expression+')' )(); if(!Number.isFinite(result)){ throw new Error(); } calc=String(result); document.getElementById("calcDisplay").value=calc; }catch(e){ document.getElementById("calcDisplay").value= "Error"; } } /* ========================================================= TIMER ========================================================= */ let timerSeconds=0; let timerInterval=null; function openTimer(){ openModal( "⏱️ تایمر", ` <div class="timer" id="timerDisplay"> 00:00:00 </div> <div class="timer-buttons"> <button onclick="startTimer()"> ▶ شروع </button> <button onclick="pauseTimer()"> ⏸ توقف </button> <button onclick="resetTimer()"> ↻ ریست </button> </div> ` ); updateTimerDisplay(); } function updateTimerDisplay(){ const h= String(Math.floor(timerSeconds/3600)) .padStart(2,"0"); const m= String(Math.floor((timerSeconds%3600)/60)) .padStart(2,"0"); const s= String(timerSeconds%60) .padStart(2,"0"); const display= document.getElementById("timerDisplay"); if(display){ display.innerText= h+":"+m+":"+s; } } function startTimer(){ if(timerInterval) return; timerInterval=setInterval(function(){ timerSeconds++; updateTimerDisplay(); },1000); } function pauseTimer(){ clearInterval(timerInterval); timerInterval=null; } function resetTimer(){ pauseTimer(); timerSeconds=0; updateTimerDisplay(); } /* ========================================================= DEVICE INFO ========================================================= */ function openDeviceInfo(){ const ua=navigator.userAgent; openModal( "📱 اطلاعات گوشی", ` <div class="info"> <div class="info-row"> <b>سیستم عامل:</b><br> ${getOS()} </div> <div class="info-row"> <b>مرورگر:</b><br> ${getBrowser()} </div> <div class="info-row"> <b>زبان:</b> ${navigator.language || "نامشخص"} </div> <div class="info-row"> <b>پردازنده منطقی:</b> ${navigator.hardwareConcurrency || "نامشخص"} </div> <div class="info-row"> <b>حافظه تقریبی:</b> ${navigator.deviceMemory ? navigator.deviceMemory+" GB" : "نامشخص"} </div> <div class="info-row"> <b>رزولوشن صفحه:</b> ${screen.width} × ${screen.height} </div> <div class="info-row"> <b>اتصال:</b> ${navigator.onLine ? "آنلاین" : "آفلاین"} </div> </div> ` ); } function getOS(){ const ua=navigator.userAgent; if(/Android/i.test(ua)) return "Android"; if(/iPhone|iPad|iPod/i.test(ua)) return "iOS"; if(/Windows/i.test(ua)) return "Windows"; if(/Mac/i.test(ua)) return "macOS"; return "نامشخص"; } function getBrowser(){ const ua=navigator.userAgent; if(/Edg/i.test(ua)) return "Microsoft Edge"; if(/Chrome/i.test(ua)) return "Google Chrome"; if(/Firefox/i.test(ua)) return "Firefox"; if(/Safari/i.test(ua)) return "Safari"; return "نامشخص"; } /* ========================================================= INTERNET ========================================================= */ function openInternet(){ openModal( "🌐 وضعیت اینترنت", ` <div style=" text-align:center; padding:25px; font-size:25px; "> ${ navigator.onLine ? "🟢 آنلاین" : "🔴 آفلاین" } <p style=" color:#8994a7; font-size:13px; margin-top:12px; "> وضعیت اتصال مرورگر </p> </div> ` ); } /* ========================================================= VIBRATION ========================================================= */ function testVibration(){ if(navigator.vibrate){ navigator.vibrate([150,80,150]); alert("📳 تست لرزش انجام شد."); }else{ alert( "این مرورگر از لرزش پشتیبانی نمی‌کند." ); } } /* ========================================================= CONVERTER ========================================================= */ function openConverter(){ openModal( "🔄 تبدیل واحد", ` <input id="kmInput" class="phone-input" type="number" inputmode="decimal" placeholder="کیلومتر"> <button class="big-button" onclick="convertKM()"> تبدیل به متر </button> <div id="convertResult" style=" text-align:center; font-size:22px; margin-top:18px; "> </div> ` ); } function convertKM(){ const value= Number(document.getElementById("kmInput").value); if(isNaN(value)){ document.getElementById("convertResult").innerText= "یک عدد وارد کن."; return; } document.getElementById("convertResult").innerText= value+" km = "+(value*1000)+" m"; } /* ========================================================= NOTES ========================================================= */ function openNotes(){ const saved= localStorage.getItem("mobileAssistantNote") || ""; openModal( "📝 یادداشت سریع", ` <textarea id="noteText" style=" width:100%; min-height:180px; resize:vertical; background:#080b11; color:white; border:1px solid #263043; border-radius:16px; padding:15px; font-family:Tahoma; font-size:15px; " placeholder="یادداشت خود را بنویس...">${escapeHTML(saved)}</textarea> <button class="big-button" onclick="saveNote()"> 💾 ذخیره یادداشت </button> ` ); } function saveNote(){ const text= document.getElementById("noteText").value; localStorage.setItem( "mobileAssistantNote", text ); alert("یادداشت ذخیره شد."); } function escapeHTML(text){ return text .replaceAll("&","&amp;") .replaceAll("<","&lt;") .replaceAll(">","&gt;") .replaceAll('"',"&quot;") .replaceAll("'","&#039;"); } /* ========================================================= ONLINE/OFFLINE UPDATE ========================================================= */ window.addEventListener("online",function(){ console.log("Online"); }); window.addEventListener("offline",function(){ console.log("Offline"); }); </script> </body> </html> 
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AJ English Class</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10131c;color:#f4f4f7;font-family:Tahoma,Arial,sans-serif;line-height:2}
+header{padding:35px 18px;text-align:center;background:linear-gradient(135deg,#182c48,#39305a);border-bottom:2px solid #d8b66a}
+.logo{display:inline-grid;place-items:center;width:75px;height:75px;border:2px solid #e5c578;border-radius:22px;color:#f3d28a;font-size:27px;font-weight:bold;box-shadow:0 0 25px #d8b66a22}
+h1{color:#f0d18c;margin:12px 0 0}
+header p{color:#d0d5e4;margin:4px}
+nav{display:flex;gap:8px;overflow:auto;padding:12px;background:#171b27;position:sticky;top:0;z-index:2}
+nav button{white-space:nowrap}
+button{border:1px solid #b99b5d;background:#22293a;color:#f2d38d;border-radius:12px;padding:10px 14px;cursor:pointer;font-family:inherit}
+button:active{transform:scale(.97)}
+main{max-width:850px;margin:auto;padding:16px}
+.card{background:#191e2b;border:1px solid #343b4c;border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 8px 25px #0002}
+h2{color:#e7c577;font-size:20px}
+h3{color:#dce5f8}
+.word{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid #303647;padding:8px 0;flex-wrap:wrap}
+.en{direction:ltr;text-align:left;color:#fff;font-weight:bold}
+.fa{color:#b9c7de;font-size:14px}
+.tag{color:#d8b66a}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid #51596d;background:#10131c;color:white;font:inherit}
+footer{text-align:center;padding:25px;color:#9ba4b8}
+.hide{display:none}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">AJ</div>
+<h1>AJ English Class</h1>
+<p>آموزش انگلیسی هفتم، ساده و قدم‌به‌قدم</p>
+<p>Learn • Practice • Improve</p>
+</header>
+
+<nav>
+<button onclick="show('home')">خانه</button>
+<button onclick="show('alphabet')">الفبا</button>
+<button onclick="show('numbers')">اعداد</button>
+<button onclick="show('colors')">رنگ‌ها</button>
+<button onclick="show('grammar')">گرامر</button>
+<button onclick="show('titles')">ضمایر و عناوین</button>
+<button onclick="show('phrases')">عبارات</button>
+<button onclick="show('quiz')">آزمون</button>
+</nav>
+
+<main>
+<section id="home">
+<div class="card">
+<h2>به کلاس انگلیسی AJ خوش آمدی!</h2>
+<p>اینجا می‌توانی واژه‌های انگلیسی، معنی فارسی، تلفظ تقریبی و نکته‌های گرامری را یاد بگیری.</p>
+<input id="search" placeholder="جست‌وجوی کلمه انگلیسی یا معنی فارسی..." oninput="searchWords()">
+<p class="fa">برای شنیدن تلفظ، روی دکمه 🔊 بزن. پخش صدا به پشتیبانی مرورگر و صدای نصب‌شده گوشی بستگی دارد.</p>
+</div>
+<div class="card">
+<h2>درس‌های سریع</h2>
+<p>📘 الفبا و حروف بزرگ و کوچک</p>
+<p>🔢 اعداد و شمارش</p>
+<p>🎨 رنگ‌ها</p>
+<p>📚 ضمایر، فعل to be و جمله‌سازی</p>
+<p>📝 عبارات روزمره و آزمون تمرینی</p>
+</div>
+</section>
+
+<section id="alphabet" class="hide">
+<div class="card">
+<h2>الفبای انگلیسی</h2>
+<p>انگلیسی ۲۶ حرف دارد. حرف بزرگ: Capital؛ حرف کوچک: Small.</p>
+<div id="letters"></div>
+</div>
+</section>
+
+<section id="numbers" class="hide">
+<div class="card"><h2>اعداد انگلیسی</h2><div id="nums"></div></div>
+</section>
+
+<section id="colors" class="hide">
+<div class="card"><h2>رنگ‌ها</h2><div id="colorlist"></div></div>
+</section>
+
+<section id="grammar" class="hide">
+<div class="card">
+<h2>گرامر: فعل To Be</h2>
+<div class="word"><span class="en">I am</span><span>من هستم</span><button onclick="say('I am')">🔊</button></div>
+<div class="word"><span class="en">You are</span><span>تو هستی / شما هستید</span><button onclick="say('You are')">🔊</button></div>
+<div class="word"><span class="en">He is</span><span>او (مذکر) است</span><button onclick="say('He is')">🔊</button></div>
+<div class="word"><span class="en">She is</span><span>او (مونث) است</span><button onclick="say('She is')">🔊</button></div>
+<div class="word"><span class="en">It is</span><span>آن است؛ برای اشیا و حیوانات</span><button onclick="say('It is')">🔊</button></div>
+<div class="word"><span class="en">We are</span><span>ما هستیم</span><button onclick="say('We are')">🔊</button></div>
+<div class="word"><span class="en">They are</span><span>آن‌ها هستند</span><button onclick="say('They are')">🔊</button></div>
+<h3>مثال‌ها</h3>
+<p class="en">I am a student.</p><p>من دانش‌آموز هستم.</p>
+<p class="en">She is my friend.</p><p>او دوست من است.</p>
+<p class="en">They are happy.</p><p>آن‌ها خوشحال هستند.</p>
+<p class="tag">نکته: am با I، is با he/she/it و are با you/we/they می‌آید.</p>
+</div>
+</section>
+
+<section id="titles" class="hide">
+<div class="card">
+<h2>ضمایر و عناوین</h2>
+<div class="word"><span class="en">He</span><span>او (مذکر)</span><button onclick="say('He')">🔊</button></div>
+<div class="word"><span class="en">She</span><span>او (مونث)</span><button onclick="say('She')">🔊</button></div>
+<div class="word"><span class="en">Mr.</span><span>آقای؛ برای مرد</span><button onclick="say('Mister')">🔊</button></div>
+<div class="word"><span class="en">Mrs.</span><span>عنوان رایج برای زن متأهل</span><button onclick="say('Missus')">🔊</button></div>
+<div class="word"><span class="en">Miss</span><span>عنوان سنتی برای زن مجرد</span><button onclick="say('Miss')">🔊</button></div>
+<div class="word"><span class="en">Ms.</span><span>عنوان برای زن، بدون اشاره به تأهل</span><button onclick="say('Miz')">🔊</button></div>
+</div>
+</section>
+
+<section id="phrases" class="hide">
+<div class="card">
+<h2>عبارات روزمره</h2>
+<div id="phraseList"></div>
+</div>
+</section>
+
+<section id="quiz" class="hide">
+<div class="card">
+<h2>آزمون کوتاه</h2>
+<p>معنی کلمه <span class="en">Blue</span> چیست؟</p>
+<button onclick="answer(false)">قرمز</button>
+<button onclick="answer(true)">آبی</button>
+<button onclick="answer(false)">سبز</button>
+<p id="result"></p>
+<hr>
+<p>جای خالی را کامل کن: I ___ a student.</p>
+<button onclick="second(false)">is</button>
+<button onclick="second(true)">am</button>
+<button onclick="second(false)">are</button>
+<p id="result2"></p>
+</div>
+</section>
+</main>
+
+<footer>
+AJ English Class<br>
+ساخته شده توسط ابوالفضل جباری
+</footer>
+
+<script>
+function show(id){
+document.querySelectorAll('main section').forEach(s=>s.classList.add('hide'));
+document.getElementById(id).classList.remove('hide');
+window.scrollTo({top:0,behavior:'smooth'});
+}
+function say(text){
+if(!('speechSynthesis' in window)){alert('مرورگر شما پخش گفتار را پشتیبانی نمی‌کند.');return}
+speechSynthesis.cancel();
+let u=new SpeechSynthesisUtterance(text);
+u.lang='en-US';u.rate=.8;
+speechSynthesis.speak(u);
+}
+const alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+document.getElementById('letters').innerHTML=alphabet.map(c=>`<div class="word"><span class="en">${c} ${c.toLowerCase()}</span><span class="fa">حرف بزرگ و کوچک</span><button onclick="say('${c}')">🔊</button></div>`).join('');
+
+const numbers=[
+['One','وان','یک'],['Two','تو','دو'],['Three','ثری','سه'],
+['Four','فور','چهار'],['Five','فایو','پنج'],['Six','سیکس','شش'],
+['Seven','سِوِن','هفت'],['Eight','اِیت','هشت'],['Nine','ناین','نه'],
+['Ten','تِن','ده'],['Eleven','اِلِوِن','یازده'],['Twelve','تْوِلو','دوازده'],
+['Thirteen','ثِرتین','سیزده'],['Fourteen','فورتین','چهارده'],
+['Fifteen','فیفتین','پانزده'],['Twenty','توئنتی','بیست'],
+['Thirty','ثِرتی','سی'],['Forty','فورتی','چهل'],
+['Fifty','فیفتی','پنجاه'],['One hundred','وان هاندرد','صد']
+];
+document.getElementById('nums').innerHTML=numbers.map(a=>`<div class="word"><span class="en">${a[0]}</span><span class="fa">${a[1]} — ${a[2]}</span><button onclick="say('${a[0]}')">🔊</button></div>`).join('');
+
+const colors=[
+['Red','قرمز','#e74c3c'],['Blue','آبی','#3498db'],
+['Green','سبز','#2ecc71'],['Yellow','زرد','#f1c40f'],
+['Black','سیاه','#111111'],['White','سفید','#ffffff'],
+['Orange','نارنجی','#f39c12'],['Purple','بنفش','#9b59b6'],
+['Pink','صورتی','#ff69b4'],['Brown','قهوه‌ای','#795548'],
+['Gray','خاکستری','#95a5a6']
+];
+document.getElementById('colorlist').innerHTML=colors.map(c=>`<div class="word"><span class="en"><span style="display:inline-block;width:18px;height:18px;border-radius:5px;background:${c[2]};border:1px solid #777;vertical-align:middle"></span> ${c[0]}</span><span>${c[1]}</span><button onclick="say('${c[0]}')">🔊</button></div>`).join('');
+
+const phrases=[
+['Hello','هلو','سلام'],['Good morning','گود مورنینگ','صبح بخیر'],
+['Goodbye','گودبای','خداحافظ'],['Thank you','ثنک یو','متشکرم'],
+['You are welcome','یور وِلکِم','خواهش می‌کنم'],
+['How are you?','هاو آر یو؟','حالت چطور است؟'],
+['I am fine','آی اَم فاین','من خوبم'],
+['What is your name?','وات ایز یور نِیم؟','اسمت چیست؟'],
+['My name is Ali','مای نِیم ایز علی','اسم من علی است'],
+['Nice to meet you','نایس تو میت یو','از آشنایی خوشوقتم']
+];
+document.getElementById('phraseList').innerHTML=phrases.map(p=>`<div class="word"><div><div class="en">${p[0]}</div><div class="fa">${p[1]} — ${p[2]}</div></div><button onclick="say('${p[0]}')">🔊</button></div>`).join('');
+
+const allWords=[...numbers.map(x=>({en:x[0],fa:x[2]})),...colors.map(x=>({en:x[0],fa:x[1]})),...phrases.map(x=>({en:x[0],fa:x[2]}))];
+function searchWords(){
+let q=document.getElementById('search').value.trim().toLowerCase();
+let results=allWords.filter(x=>x.en.toLowerCase().includes(q)||x.fa.includes(q));
+let old=document.getElementById('searchResults');
+if(!old){old=document.createElement('div');old.id='searchResults';document.getElementById('home').appendChild(old)}
+old.innerHTML=q?'<div class="card"><h2>نتایج جست‌وجو</h2>'+results.map(x=>`<div class="word"><span class="en">${x.en}</span><span>${x.fa}</span><button onclick="say('${x.en.replace(/'/g,"")}')">🔊</button></div>`).join('')+(results.length?'':'<p>نتیجه‌ای پیدا نشد.</p>')+'</div>':'';
+}
+function answer(ok){document.getElementById('result').textContent=ok?'آفرین! پاسخ درست است.':'دوباره تلاش کن.'}
+function second(ok){document.getElementById('result2').textContent=ok?'عالی! پاسخ درست است.':'دوباره تلاش کن.'}
+</script>
+</body>
+</html>
